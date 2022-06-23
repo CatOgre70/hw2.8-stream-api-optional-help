@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sky.pro.hw28streamapioptionalhelp.model.Employee;
 import sky.pro.hw28streamapioptionalhelp.model.EmployeeService;
+import sky.pro.hw28streamapioptionalhelp.model.EmployeeServiceImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -46,32 +47,5 @@ public class EmployeeController {
     public Map<String, Employee> employeeList() {
         return employeeService.allEmployeeList();
     }
-
-    @GetMapping("/departments/max-salary")
-    public Employee findEmployeeWithMaxSalary(@RequestParam("departmentId") int departmentId) {
-        return employeeService.findEmployeeWithMaxSalary(departmentId);
-    }
-
-    @GetMapping("/departments/min-salary")
-    public Employee findEmployeeWithMinSalary(@RequestParam(value = "departmentId") int departmentId) {
-        return employeeService.findEmployeeWithMinSalary(departmentId);
-    }
-
-    @GetMapping("/departments/all")
-    public Map<Integer, Set<Employee>> departmentEmployeeList(@RequestParam(value = "departmentId", required = false) String departmentId) {
-
-        int id;
-        if (departmentId == null) {
-            return employeeService.allDepartmentsEmployeeList();
-        }
-        try {
-            id = Integer.parseInt(departmentId);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return employeeService.departmentEmployeeList(id);
-
-    }
-
 
 }
