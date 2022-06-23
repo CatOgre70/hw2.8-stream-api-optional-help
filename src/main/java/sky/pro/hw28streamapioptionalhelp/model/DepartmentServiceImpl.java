@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentServiceImpl implements DepartmentService{
 
-    private Map<String, Employee> eBook;
+    private final Map<String, Employee> eBook;
 
     public DepartmentServiceImpl() {
 
@@ -42,7 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Employee findEmployeeWithMaxSalary(int department) {
         return eBook.keySet().stream()
                 .filter(s -> eBook.get(s).getDepartment() == department)
-                .map(s -> eBook.get(s))
+                .map(eBook::get)
                 .max(Comparator.comparingDouble(Employee::getSalary))
                 .orElseThrow(() -> new RuntimeException("Wrong department number in the " +
                         "DepartmentService.findEmployeeWithMaxSalary() method argument!"));
@@ -52,7 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Employee findEmployeeWithMinSalary(int department) {
         return eBook.keySet().stream()
                 .filter(s -> eBook.get(s).getDepartment() == department)
-                .map(s -> eBook.get(s))
+                .map(eBook::get)
                 .min(Comparator.comparingDouble(Employee::getSalary))
                 .orElseThrow(() -> new RuntimeException("Wrong department number in the " +
                         "DepartmentService.findEmployeeWithMaxSalary() method argument!"));
@@ -62,14 +62,14 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Map<Integer, Set<Employee>> departmentEmployeeList(int department) {
         return eBook.keySet().stream()
                 .filter(s -> eBook.get(s).getDepartment() == department)
-                .map(s -> eBook.get(s))
+                .map(eBook::get)
                 .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.toSet()));
     }
 
     @Override
     public Map<Integer, Set<Employee>> allDepartmentsEmployeeList() {
         return eBook.keySet().stream()
-                .map(s -> eBook.get(s))
+                .map(eBook::get)
                 .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.toSet()));
     }
 
