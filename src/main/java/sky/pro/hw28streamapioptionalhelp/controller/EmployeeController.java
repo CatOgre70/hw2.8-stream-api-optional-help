@@ -1,6 +1,7 @@
 package sky.pro.hw28streamapioptionalhelp.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sky.pro.hw28streamapioptionalhelp.model.Employee;
@@ -9,6 +10,7 @@ import sky.pro.hw28streamapioptionalhelp.model.EmployeeService;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     public final EmployeeService employeeService;
@@ -17,7 +19,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/employee/add")
+    @GetMapping("/add")
     public Employee addEmployee(@RequestParam("firstname") String firstName,
                                 @RequestParam("middlename") String middleName,
                                 @RequestParam("lastname") String lastName,
@@ -26,21 +28,21 @@ public class EmployeeController {
         return employeeService.addEmployee(firstName, middleName, lastName, department, salary);
     }
 
-    @GetMapping("/employee/remove")
+    @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam("firstname") String firstName,
                                    @RequestParam("middlename") String middleName,
                                    @RequestParam("lastname") String lastName) {
         return employeeService.removeEmployee(firstName, middleName, lastName);
     }
 
-    @GetMapping("/employee/find")
+    @GetMapping("/find")
     public Employee findEmployee(@RequestParam("firstname") String firstName,
                                  @RequestParam("middlename") String middleName,
                                  @RequestParam("lastname") String lastName) {
         return employeeService.findEmployee(firstName, middleName, lastName);
     }
 
-    @GetMapping("/employee/list")
+    @GetMapping("/list")
     public Map<String, Employee> employeeList() {
         return employeeService.allEmployeeList();
     }

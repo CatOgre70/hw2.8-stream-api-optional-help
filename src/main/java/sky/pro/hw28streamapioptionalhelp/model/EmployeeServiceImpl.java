@@ -55,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Employee findEmployee(String firstName, String middleName, String lastName) {
         String key = firstName + middleName + lastName;
         if(!eBook.containsKey(key)) {
-            throw new RuntimeException("Employee with such firstName, middleName and lastName is not found in the database");
+            throw new EmployeeNotFoundException("Employee with such firstName, middleName and lastName is not found in the database");
         } else {
             return eBook.get(key);
         }
