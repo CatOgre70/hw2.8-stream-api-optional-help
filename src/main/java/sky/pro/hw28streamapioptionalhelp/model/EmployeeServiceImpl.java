@@ -9,7 +9,7 @@ import java.util.Set;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    private Map<String, Employee> eBook;
+    private final Map<String, Employee> eBook;
 
     public EmployeeServiceImpl() {
 
@@ -41,8 +41,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Employee addEmployee(String firstName, String middleName, String lastName, int department, double salary) {
         Employee e = new Employee(firstName, middleName, lastName, department, salary);
         String key = e.getFirstName() + e.getMiddleName() + e.getLastName();
-        eBook.put(key, e);
-        return eBook.get(key);
+        if(eBook.containsKey(key)){
+            throw new EmployeeAlreadyAddedException("Employee with such first, middle and last names already added into the database");
+        } else {
+            eBook.put(key, e);
+            return eBook.get(key);
+        }
     }
 
     @Override
