@@ -1,5 +1,7 @@
 package sky.pro.hw28streamapioptionalhelp.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Employee {
     private final String firstName;
     private final String middleName;
@@ -11,6 +13,17 @@ public class Employee {
         if(firstName == null || middleName == null || lastName == null || department < 0 || department > 7 || salary < 0){
             throw new IllegalArgumentException("Illegal parameters in Employee class constructor");
         }
+        if(!(StringUtils.isAlpha(firstName) && StringUtils.isAlpha(middleName) && StringUtils.isAlpha(lastName))){
+            throw new ErrorInNameException("Illegal first, middle or last name: they should contain only alphabet characters");
+        }
+
+        firstName = StringUtils.lowerCase(firstName);
+        middleName = StringUtils.lowerCase(middleName);
+        lastName = StringUtils.lowerCase(lastName);
+        firstName = StringUtils.capitalize(firstName);
+        middleName = StringUtils.capitalize(middleName);
+        lastName = StringUtils.capitalize(lastName);
+
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;

@@ -51,7 +51,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Employee removeEmployee(String firstName, String middleName, String lastName) {
         String key = firstName + middleName + lastName;
-        return eBook.remove(key);
+        if(!eBook.containsKey(key)) {
+            throw new EmployeeNotFoundException("Employee with such firstName, middleName and lastName is not found in the database");
+        } else {
+            return eBook.remove(key);
+        }
     }
 
     @Override
